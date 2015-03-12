@@ -1,0 +1,7 @@
+---
+
+juniper:
+  device_type: "juniper"
+  ip: "10.10.10.10"
+  username: "user"
+  password: "pass"

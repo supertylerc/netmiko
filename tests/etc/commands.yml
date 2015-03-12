@@ -1,0 +1,6 @@
+---
+
+juniper:
+  version: "show version"
+  multiline: "show configuration"
+  basic: "show interfaces terse"

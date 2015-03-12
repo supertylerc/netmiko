@@ -1,0 +1,7 @@
+---
+
+juniper:
+  base_prompt: "tyler@juniper"
+  router_prompt: "tyler@juniper>"
+  router_conf_mode: "tyler@juniper#"
+  interface_ip: "10.169.81.177"
