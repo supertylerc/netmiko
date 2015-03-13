@@ -73,3 +73,45 @@ def test_clear_buffer():
     clear_buffer_check = net_connect.clear_buffer()
     assert clear_buffer_check is None
 
+def test_config_mode():
+    """Ensure we properly enter config mode."""
+    config_mode = net_connect.config_mode()
+    assert EXPECTED_RESPONSES["router_conf_mode"] in config_mode
+    net_connect.exit_config_mode()
+
+def test_command_set():
+    """Enter configuration mode, configure the device, and commit the changes."""
+    net_connect.config_mode()
+    net_connect.send_config_set(commands["config"], commit=True)
+    net_connect.exit_config_mode()
+    config_commands_output = net_connect.send_command("show configuration | match time-zone")
+    assert "time-zone America/New_York" in config_commands_output
+
+def test_exit_config_mode():
+    """Enter and then exit configuration mode."""
+    net_connect.config_mode()
+    exit_config_mode = net_connect.exit_config_mode()
+    assert not EXPECTED_RESPONSES["router_conf_mode"] in exit_config_mode
+    assert EXPECTED_RESPONSES["router_prompt"] in exit_config_mode
+
+def test_manual_commit():
+    """Manually configure and commit the change."""
+    net_connect.config_mode()
+    net_connect.send_command(commands["manual_commit"])
+    net_connect.commit()
+    net_connect.exit_config_mode()
+    manual_commit = net_connect.send_command("show configuration | match time-zone")
+    assert "time-zone America/Los_Angeles" in manual_commit
+
+def test_edit_context_stripped():
+    """Verify edit context is stripped from config output."""
+    net_connect.config_mode()
+    show_version_from_config = net_connect.send_command(commands["run"])
+    assert EXPECTED_RESPONSES["config_mode"] not in show_version_from_config
+    net_connect.exit_config_mode()
+
+def test_disconnect():
+    """Verify we disconnect from devices cleanly."""
+    output = net_connect.disconnect()
+    assert output is None
+
