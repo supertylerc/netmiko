@@ -24,7 +24,7 @@ def setup_module(module):
     responses = Utils.parse_yaml(pwd + "/etc/responses.yml")
     module.EXPECTED_RESPONSES = responses["juniper"]
     module.commands = Utils.parse_yaml(pwd + "/etc/commands.yml")
-    module.commands = commands["juniper"]
+    module.commands = module.commands["juniper"]
     dispatcher = Utils.parse_yaml(pwd + "/etc/dispatchers.yml")
     dispatcher = dispatcher["juniper"]
 
@@ -34,11 +34,11 @@ def setup_module(module):
     module.show_version = net_connect.send_command(module.commands["version"])
     module.multiple_line_output = net_connect.send_command(module.commands["multiline"],
                                                            delay_factor=2)
-    module.show_ip = net_connect.send_command(commands["basic"])
+    module.show_ip = net_connect.send_command(module.commands["basic"])
     module.base_prompt = net_connect.base_prompt
 
     # Test buffer clearing
-    net_connect.remote_conn.send(commands["version"])
+    net_connect.remote_conn.send(module.commands["version"])
     time.sleep(2)
     net_connect.clear_buffer()
     # Should not be anything there on the second pass
