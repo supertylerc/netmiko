@@ -6,3 +6,4 @@ tests/test_prep.sh
 examples/SECRET_DEVICE_CREDS.py
 build
 tests/etc/dispatchers.yml
+tests/etc/responses.yml
