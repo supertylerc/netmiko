@@ -10,3 +10,11 @@ juniper:
     - "set system time-zone America/New_York"
   manual_commit: "set system time-zone America/Los_Angeles"
   run: "run show version"
+
+cisco_ios:
+  version: "show version"
+  basic: "show ip interface brief"
+  config: 
+    - "logging buffered 20000"
+    - "logging buffered 20010"
+    - "no logging console"

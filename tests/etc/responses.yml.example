@@ -6,3 +6,10 @@ juniper:
   router_conf_mode: "user@junos#"
   interface_ip: "10.10.10.10"
   config_mode: "[edit"
+
+cisco_ios:
+  base_prompt: "ios"
+  router_prompt: "ios>"
+  enable_prompt: "ios#"
+  config_mode: "(config)"
+  interface_ip: "10.10.10.10"
