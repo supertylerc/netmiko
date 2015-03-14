@@ -110,12 +110,18 @@ def test_command_set():
 
 def test_exit_config_mode():
     """Verify that we exit config mode properly."""
+    net_connect.enable()
+    net_connect.config()
+    output = net_connect.exit_config_mode()
     assert not EXPECTED_RESPONSES['config_mode'] in exit_config_mode
+    net_connect.exit_enable_mode()
 
 
 def test_exit_enable_mode():
     """Verify we exit enable mode properly."""
-    assert EXPECTED_RESPONSES["user_exec_prompt"] in exit_enable_mode
+    output = net_connect.enable()
+    assert EXPECTED_RESPONSES["user_exec_prompt"] in output
+    net_connect.exit_enable_mode()
 
 def test_disconnect():
     """Verify we disconnect from devices cleanly."""
